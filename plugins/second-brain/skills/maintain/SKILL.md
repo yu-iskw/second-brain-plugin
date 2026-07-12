@@ -12,7 +12,7 @@ Cursor Automation entry point. Follow `AGENTS.md` and `meta/policies.md`. Mode f
 1. Read `meta/automation-state.md` and repository status. If `write_run_active` is true, check whether another write run is actually in progress; if not, `force-unlock` via `maintain-state` (log the reason) before continuing. Independently refuse when the worktree has dirty unrelated changes outside the expected automation branch/scope.
 2. Mark `write_run_active: true` via `knowledge-integrator` (`maintain-state`) before mutations.
 3. Run the `/second-brain:ingest` workflow for at most five new/absent ledger sources.
-4. Run `/second-brain:lint verify` with matching scope (`incremental` unless empty baseline forces `full`; `full` when requested). For incremental, ensure lint computes a wiki-filtered changed-page list for the curator.
+4. Run `/second-brain:lint` with explicit scope args: `incremental verify` by default, or `full verify` when mode is `full` or `last_successful_commit` is empty. For incremental, ensure lint computes a wiki-filtered changed-page list for the curator.
 5. Run `/second-brain:repair` only for unambiguous safe repairs listed in `meta/policies.md` (and confirmed safe by lint’s verified report).
 6. Require `wiki-verifier` `PASS` after every **content** mutation phase (ingest integration, repair, synthesize). Log/ledger-only early stops use verification `N/A` and do not need mutation PASS.
 7. Always clear `write_run_active: false` via `maintain-state` on success, early stop, or failure; on success also update `last_successful_commit`, timestamps, ledgers, and operation log as applicable. Optionally run a final maintain-completion verify that checks the cleared flag.
