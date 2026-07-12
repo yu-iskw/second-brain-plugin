@@ -25,6 +25,9 @@ lint:
       paths:
         - "**/*.mdc"
         - "**/*.svg"
+        - "plugins/**/agents/**/*.md"
+        - "plugins/**/skills/**/*.md"
+        - "plugins/**/templates/**/*.md"
         - .prettierignore
   disabled:
     - checkov
