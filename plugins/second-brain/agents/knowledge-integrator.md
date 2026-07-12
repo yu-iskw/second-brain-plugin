@@ -17,7 +17,7 @@ Apply an approved change package from the caller. Follow `AGENTS.md` and `meta/p
 
 ## Required updates by operation
 
-Shared for every successful mutation: update `wiki/index.md` when pages change, append `wiki/log.md`, and return a concise change manifest for `wiki-verifier`.
+Shared for every successful wiki mutation: update `wiki/index.md` when pages change, append `wiki/log.md`, and return a concise change manifest for `wiki-verifier`.
 
 ### ingest
 
@@ -42,6 +42,5 @@ Shared for every successful mutation: update `wiki/index.md` when pages change, 
 ### maintain-state
 
 1. Update `meta/automation-state.md` and any ledger/log fields requested by the caller.
-2. Do not perform broad wiki rewrites under this operation type.
-
-Return a concise change manifest for independent verification.
+2. Always clear `write_run_active` when the caller marks a run finished (success, early stop, or failure).
+3. Do not perform broad wiki rewrites under this operation type.

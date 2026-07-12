@@ -9,18 +9,9 @@ allowed-tools: Read, Glob, Grep, Write, Edit
 
 Initialize the current directory as a vault without overwriting existing user content. This is a first-time vault setup / governance initialization when creating missing governance files.
 
-Create missing directories by writing placeholder `.gitkeep` files when no other file exists yet:
+Materialize the templates bundled under `${CLAUDE_PLUGIN_ROOT}/templates/vault/`, including `.gitkeep` placeholders that create empty directories (`raw/assets`, wiki page-type dirs, `meta/reports`, `meta/proposals`, `output`). Creating a missing empty `raw/**/.gitkeep` is allowed scaffolding; never overwrite or edit source files under `raw/`.
 
-- `raw/assets/.gitkeep`
-- `wiki/sources/.gitkeep`
-- `wiki/entities/.gitkeep`
-- `wiki/concepts/.gitkeep`
-- `wiki/synthesis/.gitkeep`
-- `meta/reports/.gitkeep`
-- `meta/proposals/.gitkeep`
-- `output/.gitkeep`
-
-Materialize the templates bundled under `${CLAUDE_PLUGIN_ROOT}/templates/vault/` (including matching `.gitkeep` placeholders when present):
+Required template paths include:
 
 - `AGENTS.md`
 - `CLAUDE.md`
@@ -33,5 +24,6 @@ Materialize the templates bundled under `${CLAUDE_PLUGIN_ROOT}/templates/vault/`
 - `wiki/index.md`
 - `wiki/log.md`
 - `.cursor/rules/*.mdc`
+- directory `.gitkeep` placeholders under the template tree
 
 Before writing, inspect each target. Preserve existing content and report conflicts instead of replacing it. Ensure `CLAUDE.md` imports `AGENTS.md`. Finish with a manifest of created, preserved, and review-required files.
