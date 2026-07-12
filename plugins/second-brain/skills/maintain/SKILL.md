@@ -9,10 +9,10 @@ allowed-tools: Read, Glob, Grep, Write, Edit, Bash(git diff *), Bash(git status 
 
 Cursor Automation entry point. Follow `AGENTS.md` and `meta/policies.md`. Mode from `$ARGUMENTS`: `incremental` (default) or `full`. If `meta/automation-state.md` has an empty `last_successful_commit`, treat incremental lint/curator scope as `full` for this run (then record the commit).
 
-1. Read `meta/automation-state.md` and repository status; refuse concurrent or dirty unrelated work when `write_run_active` is true.
+1. Read `meta/automation-state.md` and repository status. Refuse when `write_run_active` is true. Independently refuse when the worktree has dirty unrelated changes outside the expected automation branch/scope.
 2. Mark `write_run_active: true` via `knowledge-integrator` (`maintain-state`) before mutations.
 3. Run the `/second-brain:ingest` workflow for at most five new/absent ledger sources.
-4. Run `/second-brain:lint` with matching scope (`incremental` unless empty baseline forces `full`; `full` when requested).
+4. Run `/second-brain:lint` with matching scope (`incremental` unless empty baseline forces `full`; `full` when requested). For incremental, ensure lint computes and passes a changed-page list to the curator.
 5. Run `/second-brain:repair` only for unambiguous safe repairs listed in `meta/policies.md`.
 6. Require `wiki-verifier` `PASS` after every mutation phase that changed wiki pages.
 7. Always clear `write_run_active: false` via `maintain-state` on success, early stop, or failure; on success also update `last_successful_commit`, timestamps, ledgers, and operation log as applicable.
