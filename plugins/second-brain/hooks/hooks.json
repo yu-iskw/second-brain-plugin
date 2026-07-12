@@ -1,0 +1,27 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "prompt",
+            "model": "haiku",
+            "prompt": "Evaluate the proposed file mutation. Deny it when it modifies raw/, .git/, or .obsidian/, or changes AGENTS.md, meta/schema.md, meta/ontology.md, or meta/policies.md without an explicit governance-change request. Also deny deletion, rename, merge, or split of canonical wiki pages unless explicitly approved. Return a concise reason when denied."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "model": "haiku",
+            "prompt": "For a second-brain mutation workflow, allow stopping only if the response reports scope, sources processed, files changed, independent verification result, unresolved review items, and ledger/log updates. Otherwise identify the missing completion evidence."
+          }
+        ]
+      }
+    ]
+  }
+}
