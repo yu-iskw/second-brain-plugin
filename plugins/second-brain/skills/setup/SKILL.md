@@ -24,6 +24,5 @@ Materialize the templates bundled under `${CLAUDE_PLUGIN_ROOT}/templates/vault/`
 - `wiki/index.md`
 - `wiki/log.md`
 - `.cursor/rules/*.mdc`
-- `.cursor/agents/*.md`
 
 Before writing, inspect each target. Preserve existing content and report conflicts instead of replacing it. Ensure `CLAUDE.md` imports `AGENTS.md`. Finish with a manifest of created, preserved, and review-required files.
