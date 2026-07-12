@@ -3,22 +3,12 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Write|Edit",
+        "matcher": "Write|Edit|Bash",
         "hooks": [
           {
             "type": "prompt",
             "model": "haiku",
-            "prompt": "Enforce templates/vault AGENTS.md ownership and invariants. Hook input: $ARGUMENTS. Inspect tool_input.file_path (and content). DENY mutations under .git/ or .obsidian/. DENY any Write/Edit under raw/ except first-time setup creating a missing path matching raw/**/.gitkeep with empty/placeholder content only (deny new raw source files, deny overwriting existing raw files). DENY delete/rename/merge/split of canonical wiki pages unless explicitly approved. DENY changes to AGENTS.md, meta/schema.md, meta/ontology.md, or meta/policies.md unless explicit governance or first-time setup creating a missing file without overwrite. ALLOW ordinary wiki/ and meta ledger/report/state/index/log updates. Deny with a concise reason."
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "prompt",
-            "model": "haiku",
-            "prompt": "Enforce templates/vault AGENTS.md ownership and invariants. Hook input: $ARGUMENTS. Inspect tool_input.command. ALLOW immediately when the command is read-only git inspection only (status, diff, log, rev-parse, show) with no file redirects/writes. DENY commands that create/modify/move/delete under .git/ or .obsidian/, or under raw/ except first-time setup creating missing raw/**/.gitkeep placeholders. DENY shell-based wiki delete/rename/merge/overwrite and governance-file edits unless explicit governance or first-time setup of a missing file. Deny with a concise reason."
+            "prompt": "Enforce templates/vault AGENTS.md ownership and invariants (single source of truth; do not invent extra rules). Hook input: $ARGUMENTS. If tool_name is Bash and tool_input.command is read-only git inspection only (status, diff, log, rev-parse, show, ls-files) with no file redirects/writes, ALLOW immediately. Otherwise inspect tool_input.file_path/content or tool_input.command. DENY mutations under .git/ or .obsidian/. DENY any create/modify/move/delete under raw/ except first-time setup creating a missing raw/**/.gitkeep with empty/placeholder content. DENY delete/rename/merge/split of canonical wiki pages unless explicitly approved. DENY changes to AGENTS.md, meta/schema.md, meta/ontology.md, or meta/policies.md unless explicit governance or first-time setup creating a missing file without overwrite. ALLOW ordinary wiki/ and meta ledger/report/state/index/log updates. Deny with a concise reason."
           }
         ]
       }
@@ -29,7 +19,7 @@
           {
             "type": "prompt",
             "model": "haiku",
-            "prompt": "Hook input: $ARGUMENTS. Allow stop for read-only/non-mutation turns (query, status, lint report-only, research, clarification) when the user question is answered. Allow setup stop when a create/preserve/conflict manifest is present. For mutation workflows (ingest, repair, synthesize, maintain): if the run early-stopped with ledger needs-review/failed and no wiki integration was attempted, allow stop when that outcome, ledger/log updates, unresolved items, and cleared write_run_active (false) / automation-state updates as applicable are reported (verification may be N/A). Otherwise require scope, sources processed (or none), files changed, independent verification result, unresolved review items, and ledger/log/automation-state updates including write_run_active cleared when maintain started a write run. Identify missing evidence when blocking."
+            "prompt": "Hook input: $ARGUMENTS. Allow stop for read-only/non-mutation turns (query, status, lint report-only, research, clarification) when the user question is answered. Allow setup stop when a create/preserve/conflict manifest is present. For mutation workflows (ingest, repair, synthesize, maintain): if the run early-stopped with ledger needs-review/failed and no content integration was attempted, allow stop when that outcome, ledger/log updates, unresolved items, and cleared write_run_active (false) / automation-state updates as applicable are reported (verification may be N/A). Otherwise require scope, sources processed (or none), files changed, independent verification result, unresolved review items, and ledger/log/automation-state updates including write_run_active cleared when maintain started a write run. Identify missing evidence when blocking."
           }
         ]
       }

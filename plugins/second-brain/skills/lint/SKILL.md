@@ -9,15 +9,19 @@ allowed-tools: Read, Glob, Grep, Write, Bash(git diff *), Bash(git log *), Bash(
 
 Delegate structural and epistemic analysis to `knowledge-curator`.
 
-Scope:
+Resolve scope in this order:
 
-- `full` when `$ARGUMENTS` includes `full`, when `last_successful_commit` is empty, or when maintain forces full.
-- `incremental` when `$ARGUMENTS` includes `incremental` or the caller is maintain in incremental mode with a non-empty baseline:
-  1. Collect candidates from `git diff --name-only <last_successful_commit>` and from untracked/other wiki paths via `git status --porcelain` / `git ls-files --others --exclude-standard`.
-  2. Keep only `wiki/**/*.md` paths (plus one-hop wiki links you discover from that set).
-  3. If the filtered list is empty, write a no-op timestamped report under `meta/reports/` stating no wiki pages changed since the baseline, and do not call the curator.
-  4. Otherwise pass the filtered list to the curator with scope `incremental`.
-- Prefer `incremental` for routine maintain; prefer `full` for an explicit `/second-brain:lint` without args.
+1. If `meta/automation-state.md`'s `last_successful_commit` is empty, use `full` (even when `$ARGUMENTS` says `incremental`).
+2. Else if `$ARGUMENTS` includes `full`, or an explicit `/second-brain:lint` has no incremental/full hint, use `full`.
+3. Else if `$ARGUMENTS` includes `incremental` or the caller is maintain in incremental mode, use `incremental`.
+4. Otherwise use `full`.
+
+For `incremental`:
+
+1. Collect candidates from `git diff --name-only <last_successful_commit>` and from untracked/other wiki paths via `git status --porcelain` / `git ls-files --others --exclude-standard`.
+2. Keep only `wiki/**/*.md` paths (plus one-hop wiki links you discover from that set).
+3. If the filtered list is empty, write a no-op timestamped report under `meta/reports/` stating no wiki pages changed since the baseline, and do not call the curator.
+4. Otherwise pass the filtered list to the curator with scope `incremental`.
 
 When `$ARGUMENTS` includes `verify` or `strict` (including `/second-brain:lint verify` from maintain), and a curator report was produced, also ask `wiki-verifier` in `audit` mode to sanity-check that report. Skip audit for no-op empty-list runs.
 
