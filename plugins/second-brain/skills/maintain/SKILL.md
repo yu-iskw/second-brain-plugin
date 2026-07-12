@@ -7,15 +7,15 @@ allowed-tools: Read, Glob, Grep, Write, Edit, Bash(git diff *), Bash(git status 
 
 # Maintain Second Brain
 
-This is the Cursor Automation entry point. Follow `AGENTS.md` and `meta/policies.md`.
+Cursor Automation entry point. Follow `AGENTS.md` and `meta/policies.md`. Mode from `$ARGUMENTS`: `incremental` (default) or `full`.
 
-1. Read `meta/automation-state.md` and repository status.
-2. Refuse concurrent or dirty unrelated work.
-3. Discover at most five new sources and run the ingest workflow.
-4. Run an incremental lint over affected and linked pages.
-5. Apply only unambiguous safe repairs.
-6. Require independent verification after every mutation phase.
-7. Update automation state, source ledger, and operation log.
-8. Produce a PR-ready summary containing scope, sources, changed files, verification, unresolved review items, and risk-budget status.
+1. Read `meta/automation-state.md` and repository status; refuse concurrent or dirty unrelated work (`write_run_active` advisory).
+2. Mark `write_run_active: true` via `knowledge-integrator` (`maintain-state`) before mutations.
+3. Run the `/second-brain:ingest` workflow for at most five new/absent ledger sources.
+4. Run `/second-brain:lint` with matching scope (`incremental` → affected + linked pages; `full` → whole vault).
+5. Run `/second-brain:repair` only for unambiguous safe repairs listed in `meta/policies.md`.
+6. Require `wiki-verifier` `PASS` after every mutation phase.
+7. Update automation state, source ledger, and operation log (`maintain-state` / integrator as needed).
+8. Produce a PR-ready summary: scope, sources, changed files, verification, unresolved review items, and risk-budget status from `AGENTS.md`.
 
-Stop and request review when more than 20 wiki pages would change, more than 10 canonical pages would be created, governance files are touched, a high-impact contradiction is found, or destructive/semantic refactoring is indicated.
+Honor the automation risk budget in `AGENTS.md`; stop and request review when exceeded.

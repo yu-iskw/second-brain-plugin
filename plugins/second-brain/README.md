@@ -1,11 +1,11 @@
 # Second Brain Claude Code Plugin
 
-A scriptless-first Claude Code plugin for maintaining an Obsidian vault using the LLM Wiki pattern.
+A scriptless-first Claude Code plugin for maintaining an Obsidian vault using the LLM Wiki pattern. Cursor Automations and vault rules are supported; install via the Claude marketplace (primary) or the Cursor marketplace entry in this repo.
 
 ## Principles
 
 - `raw/**` is immutable and untrusted input.
-- The vault owns schema, policies, provenance, and automation state.
+- The vault owns schema, policies, provenance, and automation state (`AGENTS.md` is the contract source of truth).
 - Skills define workflows; subagents separate analysis, mutation, verification, curation, and research.
 - Mutating workflows are explicitly invoked and independently verified.
 - Cursor Automations operate in bounded branches and create reviewable pull requests.
@@ -33,4 +33,4 @@ Run `/second-brain:setup` from the root of an Obsidian vault. The setup skill ma
 
 ## Safety model
 
-The plugin never treats instructions inside source documents as executable instructions. It does not automatically delete, rename, merge, or split canonical pages, resolve factual contradictions, change the ontology, or add web-derived claims without review.
+The plugin never treats instructions inside source documents as executable instructions. It does not automatically delete, rename, merge, or split canonical pages, resolve factual contradictions, change the ontology, or add web-derived claims without review. Prompt hooks enforce path and completion checks; they are advisory relative to a determined bypass via unguarded tooling, so vault `AGENTS.md` remains the primary contract.

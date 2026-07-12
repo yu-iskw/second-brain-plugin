@@ -7,11 +7,20 @@ allowed-tools: Read, Glob, Grep, Write, Edit
 
 # Setup Second Brain
 
-Initialize the current directory as a vault without overwriting existing user content.
+Initialize the current directory as a vault without overwriting existing user content. This is a first-time vault setup / governance initialization when creating missing governance files.
 
-Create missing directories: `raw/assets`, `wiki/sources`, `wiki/entities`, `wiki/concepts`, `wiki/synthesis`, `meta/reports`, `meta/proposals`, and `output`.
+Create missing directories by writing placeholder `.gitkeep` files when no other file exists yet:
 
-Materialize the templates bundled under `${CLAUDE_PLUGIN_ROOT}/templates/vault/`:
+- `raw/assets/.gitkeep`
+- `wiki/sources/.gitkeep`
+- `wiki/entities/.gitkeep`
+- `wiki/concepts/.gitkeep`
+- `wiki/synthesis/.gitkeep`
+- `meta/reports/.gitkeep`
+- `meta/proposals/.gitkeep`
+- `output/.gitkeep`
+
+Materialize the templates bundled under `${CLAUDE_PLUGIN_ROOT}/templates/vault/` (including matching `.gitkeep` placeholders when present):
 
 - `AGENTS.md`
 - `CLAUDE.md`

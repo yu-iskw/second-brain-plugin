@@ -1,4 +1,5 @@
 {
+  "version": "1",
   "hooks": {
     "PreToolUse": [
       {
@@ -7,7 +8,17 @@
           {
             "type": "prompt",
             "model": "haiku",
-            "prompt": "Evaluate the proposed file mutation. Deny it when it modifies raw/, .git/, or .obsidian/, or changes AGENTS.md, meta/schema.md, meta/ontology.md, or meta/policies.md without an explicit governance-change request. Also deny deletion, rename, merge, or split of canonical wiki pages unless explicitly approved. Return a concise reason when denied."
+            "prompt": "You are enforcing second-brain vault invariants from AGENTS.md. Hook input JSON: $ARGUMENTS. Inspect tool_input.file_path (and content when present). DENY when the path is under raw/, .git/, or .obsidian/. DENY deletion, rename, merge, or split of canonical wiki pages unless the surrounding request explicitly approves that destructive change. DENY changes to AGENTS.md, meta/schema.md, meta/ontology.md, or meta/policies.md unless the request is an explicit governance change OR first-time vault setup/initialization that creates a missing file without overwriting existing content. ALLOW ordinary wiki/, meta/reports/, meta/proposals/, meta/source-ledger.md, meta/automation-state.md, wiki/index.md, and wiki/log.md updates. Return a concise denial reason when blocking."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "model": "haiku",
+            "prompt": "You are enforcing second-brain vault invariants from AGENTS.md. Hook input JSON: $ARGUMENTS. Inspect tool_input.command. DENY commands that create, modify, move, or delete paths under raw/, .git/, or .obsidian/. DENY shell-based deletion, rename, merge, or overwrite of canonical wiki pages unless the request explicitly approves that destructive change. DENY shell edits to AGENTS.md, meta/schema.md, meta/ontology.md, or meta/policies.md unless the request is explicit governance or first-time setup creating a missing file. ALLOW read-only git/status/diff/log commands and non-destructive vault inspection. Return a concise denial reason when blocking."
           }
         ]
       }
@@ -18,7 +29,7 @@
           {
             "type": "prompt",
             "model": "haiku",
-            "prompt": "For a second-brain mutation workflow, allow stopping only if the response reports scope, sources processed, files changed, independent verification result, unresolved review items, and ledger/log updates. Otherwise identify the missing completion evidence."
+            "prompt": "Hook input JSON: $ARGUMENTS. Decide whether Claude may stop. If this turn was a read-only or non-mutation workflow (query, status, lint report-only, research, or unanswered clarification), allow stopping when the user question is answered. If this turn was vault setup, allow stopping when a create/preserve/conflict manifest is present. If this turn was a mutation workflow (ingest, repair, synthesize, maintain, or other wiki writes), allow stopping only when the response reports scope, sources processed (or none), files changed, independent verification result, unresolved review items, and ledger/log/automation-state updates as applicable. Otherwise identify the missing completion evidence."
           }
         ]
       }

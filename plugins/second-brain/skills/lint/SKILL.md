@@ -7,8 +7,8 @@ allowed-tools: Read, Glob, Grep, Write
 
 # Lint Second Brain
 
-Delegate structural and epistemic analysis to `knowledge-curator`, then independent consistency checking to `wiki-verifier`.
+Delegate structural and epistemic analysis to `knowledge-curator`. Optionally ask `wiki-verifier` in `audit` mode to sanity-check the curator report against the live vault. Do not use mutation-mode verification for lint.
 
-Check broken and ambiguous wikilinks, orphan pages, duplicate concepts, missing provenance, schema drift, stale claims, unresolved contradictions, index and ledger inconsistencies, weak cross-references, and missing synthesis.
+When `$ARGUMENTS` includes `incremental` (or the caller is `/second-brain:maintain`), request incremental curator scope; otherwise run a full audit.
 
-Write a timestamped report under `meta/reports/`. Do not modify wiki pages. For every finding include severity, evidence, affected files, safe-versus-review-required classification, and recommended action.
+Write only a timestamped report under `meta/reports/`. Do not modify wiki pages, ledgers, or governance files. For every finding include severity, evidence, affected files, safe-versus-review-required classification (per `meta/policies.md`), quality-rubric notes when relevant, and recommended action. Suggest `research-scout` for explicit gaps that need external candidates.
