@@ -19,7 +19,7 @@
 7. Do not delete, rename, merge, or split canonical pages without human approval.
 8. Do not change schema, ontology, or policies without an explicit governance task.
 9. Every mutation workflow updates `wiki/log.md` and the relevant ledger/state files.
-10. Mutation workflows that change wiki pages are incomplete until an independent verifier passes. Early-stop ingest that only marks ledger `needs-review`/`failed` without wiki writes reports verification as `N/A`.
+10. Content mutation workflows (wiki page body/frontmatter changes beyond log/ledger bookkeeping) are incomplete until an independent verifier passes. Early-stop ingest that only updates the ledger and appends a log-only entry reports verification as `N/A`.
 
 ## Page lifecycle
 

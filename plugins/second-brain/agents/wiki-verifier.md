@@ -20,7 +20,8 @@ Verify the actual git diff (and status). Check that:
 - new `[[wikilinks]]` resolve; no duplicate canonical page was introduced
 - `wiki/index.md`, `wiki/log.md`, and relevant ledger/automation-state updates agree with the change package
 - for ingest operations that reached integration, every such source has a source page and ledger transition
-- when maintain started a write run, `write_run_active` is cleared to `false` before completion
+
+When the caller marks the package as a **final maintain completion** check, also require `write_run_active: false`. Do not require the flag to be false during mid-run phase verifies while a maintain write run is still in progress.
 
 ## audit
 

@@ -22,4 +22,4 @@ Deletion, rename, merge, split, ontology changes, canonical identity changes, co
 
 ## Concurrency
 
-Only one write-enabled maintenance run may operate on a vault branch at a time. Read-only audits may run concurrently but must rebase findings before application. `meta/automation-state.md`'s `write_run_active` flag is advisory coordination state, not a hard lock.
+Only one write-enabled maintenance run may operate on a vault branch at a time. Read-only audits may run concurrently but must rebase findings before application. `meta/automation-state.md`'s `write_run_active` flag is coordination state: maintain refuses while it is true unless it confirms no other write run is active and performs a logged `force-unlock`.

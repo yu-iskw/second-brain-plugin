@@ -11,4 +11,4 @@ Read the report or findings supplied in `$ARGUMENTS`. Apply only approved repair
 
 Safe automatic repairs are exactly those listed under Change control in `meta/policies.md`. Require explicit human approval for every review-required change class in that policy.
 
-Delegate changes to `knowledge-integrator` with operation type `repair` and an approved change package derived from the lint findings. Require `wiki-verifier` (`mutation` mode) to pass. Record the repair in `wiki/log.md` and retain unresolved findings.
+Delegate changes to `knowledge-integrator` with operation type `repair` and an approved change package derived from the lint findings (include the intended `wiki/log.md` entry in that package). Require `wiki-verifier` (`mutation` mode) to pass on the full package. Do not mutate files after PASS. Retain unresolved findings in the report/summary.
