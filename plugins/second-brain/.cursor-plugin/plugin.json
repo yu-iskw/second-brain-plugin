@@ -1,0 +1,10 @@
+{
+  "name": "second-brain",
+  "version": "0.1.0",
+  "description": "Maintain a provenance-aware Obsidian second brain with role-separated workflows and Cursor Automations.",
+  "author": {
+    "name": "yu-iskw"
+  },
+  "license": "Apache-2.0",
+  "repository": "https://github.com/yu-iskw/second-brain-plugin"
+}

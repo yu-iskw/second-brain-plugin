@@ -9,8 +9,6 @@ allowed-tools: Read, Glob, Grep, Write, Edit, Bash(git diff *), Bash(git status 
 
 Read the report or findings supplied in `$ARGUMENTS`. Apply only approved repairs.
 
-Safe automatic repairs include adding a missing index entry, fixing a broken wikilink with exactly one unambiguous target, normalizing schema fields without changing meaning, adding a missing reciprocal link, and synchronizing ledgers.
+Safe automatic repairs are exactly those listed under Change control in `meta/policies.md`. Require explicit human approval for every review-required change class in that policy.
 
-Require explicit human approval for deletion, rename, merge, split, canonical identity changes, factual contradiction resolution, ontology changes, external facts, or semantic rewriting.
-
-Delegate changes to `knowledge-integrator`, then require `wiki-verifier` to pass. Record the repair in `wiki/log.md` and retain unresolved findings.
+Delegate changes to `knowledge-integrator` with operation type `repair` and an approved change package derived from the lint findings (include the intended `wiki/log.md` entry in that package). Require `wiki-verifier` (`mutation` mode) to pass on the full package. Do not mutate files after PASS. Retain unresolved findings in the report/summary.
