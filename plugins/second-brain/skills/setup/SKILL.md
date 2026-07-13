@@ -11,7 +11,9 @@ Initialize or upgrade the current directory as a governed OKF knowledge reposito
 
 Templates live under `${CLAUDE_PLUGIN_ROOT}/templates/vault/`. Creating a missing empty `raw/**/.gitkeep` is allowed; never overwrite or edit source files under `raw/`.
 
-## Ordered state machine (run top to bottom; one action per matching row)
+## Ordered state machine
+
+Walk rows top to bottom. Rename/conflict rows are exclusive (first match wins). For the governance missing/pre-OKF row, evaluate **every** listed file independently in that single step (do not stop after the first file). Later rows still run afterward.
 
 Evaluate `governance/{schema,ontology,policies,quality-rubric}.md` and `AGENTS.md` **per file** (independent decisions; never batch-replace sibling governance files).
 
@@ -21,7 +23,7 @@ Evaluate `governance/{schema,ontology,policies,quality-rubric}.md` and `AGENTS.m
 | `wiki/` and `knowledge/` both exist | Conflict: do not merge; list review-required |
 | `meta/` exists and `governance/` does not | `git mv`/`mv` `meta` → `governance` |
 | `meta/` and `governance/` both exist | Conflict: do not merge; list review-required |
-| Any of `governance/{schema,ontology,policies,quality-rubric}.md` or `AGENTS.md` is **missing** or **pre-OKF** | For **each** file independently: if missing or pre-OKF, backup existing content to `governance/proposals/legacy-<name>-backup.md` when present, then materialize the OKF template for **that file only**. **Pre-OKF `schema.md`:** no `okf-core`, mandates `[[wikilinks]]` as canonical, or closed `type:` enum without `knowledge_role`. **Pre-OKF other governance files:** references `wiki/**` or `meta/**` instead of `knowledge/**` / `governance/**`. **Pre-OKF `AGENTS.md`:** describes `wiki/**`/`meta/**` or lacks OKF ownership boundaries. **Skip** files already OKF-conformant (next row). Mark review-required for any backup-then-replace. |
+| Any of `governance/{schema,ontology,policies,quality-rubric}.md` or `AGENTS.md` is **missing** or **pre-OKF** | For **each** file independently: if missing or pre-OKF, backup existing content to `governance/proposals/legacy-<name>-backup.md` when present, then materialize the OKF template for **that file only**. Skip files already OKF-conformant (next row). Mark review-required for any backup-then-replace. **Pre-OKF detection:** `schema.md` — no `okf-core`, mandates `[[wikilinks]]` as canonical, or closed `type:` enum without `knowledge_role`. `ontology.md` — lacks `knowledge_role`, or lacks `knowledge/` directory routing, or references `wiki/**`/`meta/**`. `policies.md` — references `wiki/**` or `meta/**`. `quality-rubric.md` — lacks `governance/schema.md`, or lacks Markdown-link wording, or references `wiki/**`/`meta/**`. `AGENTS.md` — describes `wiki/**`/`meta/**`, or lacks both `knowledge/**` and `governance/**` ownership boundaries. |
 | OKF-conformant governance file exists and differs from template in substance | Preserve user file unchanged; write template as `governance/proposals/<name>.okf-template.md`; list under **preserved** / conflict |
 | Required OKF files/dirs still missing after the above | Materialize missing templates only (including `.gitkeep` dirs under `knowledge/{sources,entities,concepts,synthesis}`, `governance/{proposals,reports}`, `raw/assets`, `output`) |
 | Pages under `knowledge/` still have `[[` or legacy closed `type:` | Grep first; edit matching files only; cap at 20 pages per run (same risk budget as `AGENTS.md`); leave remainder as review-required |
