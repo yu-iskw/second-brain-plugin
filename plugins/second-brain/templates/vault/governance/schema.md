@@ -42,13 +42,15 @@ Set `timestamp` from `updated` (or current UTC) on meaningful writes. Title/alia
 
 ## Linking
 
-Canonical links are standard Markdown; prefer bundle-absolute paths from `knowledge/`:
+Canonical links are standard Markdown.
+
+- Prefer **relative** links within the bundle when the Git repo root is also an Obsidian vault root (leading `/…` would resolve from the vault root, not `knowledge/`).
+- Prefer **bundle-absolute** `/entities/orders.md` when the OKF bundle directory itself is the consumption root.
 
 ```md
+[Orders](../entities/orders.md)
 [Orders](/entities/orders.md)
 ```
-
-Relative links are allowed.
 
 **Wikilink severity**
 

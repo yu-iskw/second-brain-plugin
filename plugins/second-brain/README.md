@@ -35,7 +35,7 @@ Run `/second-brain:setup` from the repository root. The setup skill materializes
 
 ### Optional Obsidian client
 
-If you edit with Obsidian, keep `.obsidian/` local/tooling-only (agents must not modify it). Prefer disabling “Use [[Wikilinks]]” so new links are standard Markdown compatible with OKF.
+If you edit with Obsidian, keep `.obsidian/` local/tooling-only (agents must not modify it). Prefer disabling “Use [[Wikilinks]]” so new links are standard Markdown. If the Obsidian vault root is the Git repo root, use **relative** links inside `knowledge/` (leading `/…` resolves from the vault root, not the OKF bundle). Alternatively open `knowledge/` as the vault root to use OKF bundle-absolute links.
 
 ## Safety model
 

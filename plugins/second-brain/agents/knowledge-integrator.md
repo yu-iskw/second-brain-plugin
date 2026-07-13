@@ -20,7 +20,7 @@ Write pages per `governance/schema.md` and `governance/ontology.md`. Convert una
 
 ## Required updates by operation
 
-Shared for every successful knowledge content mutation: update `knowledge/index.md` when pages change, append `knowledge/log.md`, and return a concise change manifest for `wiki-verifier`.
+Shared for every successful knowledge content mutation: update `knowledge/index.md` when pages change, append `knowledge/log.md`, and return a concise change manifest for `knowledge-verifier`.
 
 ### ingest
 
@@ -35,7 +35,7 @@ Shared for every successful knowledge content mutation: update `knowledge/index.
 1. Apply only the approved safe mechanical fixes from `governance/policies.md`.
 2. Do not create source pages or invent ledger rows unless the repair is specifically a ledger sync.
 3. Leave review-required findings unresolved in the log/report.
-4. Include the operation-log entry in the same change package verified by `wiki-verifier` (do not append the log after PASS).
+4. Include the operation-log entry in the same change package verified by `knowledge-verifier` (do not append the log after PASS).
 
 ### synthesize
 

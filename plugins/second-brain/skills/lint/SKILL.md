@@ -25,6 +25,6 @@ For `incremental`:
 3. If the filtered list is empty, write a no-op timestamped report under `governance/reports/` stating no knowledge pages changed since the baseline, and do not call the curator.
 4. Otherwise pass the filtered list to the curator with scope `incremental`.
 
-When `$ARGUMENTS` includes `verify` or `strict`, and a curator report was produced, also ask `wiki-verifier` in `audit` mode to sanity-check that report. Skip audit for no-op empty-list runs.
+When `$ARGUMENTS` includes `verify` or `strict`, and a curator report was produced, also ask `knowledge-verifier` in `audit` mode to sanity-check that report. Skip audit for no-op empty-list runs.
 
 Write only a timestamped report under `governance/reports/`. Do not modify knowledge pages, ledgers, or governance policy files. For every finding include severity, evidence, affected files, safe-versus-review-required classification (per `governance/policies.md`), quality-rubric notes when relevant, recommended action, and curator-required fields (including schema profile id when schema-related). Suggest `research-scout` for explicit gaps that need external candidates.
