@@ -1,6 +1,6 @@
-@AGENTS.md
-
 # Claude Code Integration
+
+@AGENTS.md
 
 Use the installed `second-brain` plugin for setup, ingestion, query, synthesis, lint, repair, maintenance, and status workflows.
 
