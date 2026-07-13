@@ -1,4 +1,8 @@
-# Wiki Index
+---
+okf_version: "0.1"
+---
+
+# Knowledge Index
 
 ## Sources
 
