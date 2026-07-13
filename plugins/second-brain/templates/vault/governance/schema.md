@@ -63,7 +63,7 @@ Bundle-absolute `/entities/orders.md` is optional when the OKF bundle directory 
 
 ## Validation profiles
 
-Label schema-related lint findings with the profile id. In **mutation** verify, apply profiles to **touched non-reserved** knowledge concept pages in the diff. For newly added Markdown links, only require that targets **resolve** (or be flagged)—do not run full profiles on one-hop neighbors. Reserved `index.md` / `log.md` are checked only under okf-core reserved-file rules, never under second-brain-governed field requirements.
+Label schema-related lint findings with the profile id. In **mutation** verify, apply profiles to **touched non-reserved** knowledge pages in the diff. For newly added Markdown links, only require that targets **resolve** (or be flagged)—do not run full profiles on one-hop neighbors. Reserved `index.md` / `log.md` are checked only under okf-core reserved-file rules, never under second-brain-governed field requirements.
 
 ### okf-core
 
@@ -75,7 +75,7 @@ Label schema-related lint findings with the profile id. In **mutation** verify, 
 
 ### second-brain-governed
 
-Applies to non-reserved concept pages only (not `index.md` / `log.md`).
+Applies to non-reserved knowledge pages only (not `index.md` / `log.md`).
 
 1. `knowledge_role` present and consistent with directory placement (`governance/ontology.md`).
 2. Lifecycle enums valid; `raw_path` set for sources.
