@@ -26,12 +26,22 @@ A scriptless-first Claude Code / Cursor plugin for maintaining a **Git-native Op
 
 ## Installation
 
+Install into **project scope** so vault hooks only load in repositories that use this plugin:
+
 ```bash
 /plugin marketplace add yu-iskw/second-brain-plugin
-/plugin install second-brain@second-brain-plugin
+/plugin install second-brain@second-brain-plugin --scope project
 ```
 
-Run `/second-brain:setup` from the repository root. The setup skill materializes the OKF bundle (`knowledge/`), governance files, and Cursor-compatible rules without requiring a custom runtime. Legacy `wiki/` + `meta/` layouts are migrated when present.
+Equivalent CLI form:
+
+```bash
+claude plugin install --scope project second-brain@second-brain-plugin
+```
+
+Re-run the project-scoped install in each vault repository. Do **not** install user-wide unless you accept vault guardrails (and hook latency) in every project—hooks also self-gate to initialized vaults, but project scope is the documented install path.
+
+Run `/second-brain:setup` from the repository root. The setup skill materializes the OKF bundle (`knowledge/`) and missing or pre-OKF governance files, preserves OKF-conformant custom governance as proposals, and adds Cursor-compatible rules without requiring a custom runtime. Legacy `wiki/` + `meta/` layouts are migrated when present.
 
 ### Optional Obsidian client
 
@@ -39,7 +49,7 @@ If you edit with Obsidian, keep `.obsidian/` local/tooling-only (agents must not
 
 ## Safety model
 
-The plugin never treats instructions inside source documents as executable instructions. It does not automatically delete, rename, merge, or split canonical pages, resolve factual contradictions, change the ontology, or add web-derived claims without review. Prompt hooks enforce path and completion checks; they are advisory relative to a determined bypass via unguarded tooling, so repository `AGENTS.md` remains the primary contract.
+The plugin never treats instructions inside source documents as executable instructions. It does not automatically delete, rename, merge, or split canonical pages, resolve factual contradictions, change the ontology, or add web-derived claims without review. Prompt hooks enforce path and completion checks in initialized vaults only (both `governance/schema.md` containing `okf-core` and `AGENTS.md` containing `Second Brain Agent Contract`); they are advisory relative to a determined bypass via unguarded tooling, so repository `AGENTS.md` remains the primary contract.
 
 ## Further reading
 
