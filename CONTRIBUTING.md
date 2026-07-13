@@ -36,14 +36,14 @@ make test-integration-docker
 
 You can also run scripts directly from the repo root:
 
-| Command | Purpose |
-| --- | --- |
-| `./integration_tests/run.sh` | Discover plugins under `plugins/` and run validation + loading checks |
-| `./integration_tests/run.sh --verbose` | Same with verbose output |
-| `./integration_tests/run.sh --manifest-only` | Manifest / structure checks only (Claude, Cursor, Codex) |
-| `./integration_tests/run.sh --skip-loading` | Skip Claude CLI loading tests |
-| `./integration_tests/validate-manifest.sh` | Claude `plugin.json` schema validation |
-| `./integration_tests/test-plugin-install.sh` | Marketplace install test (requires Claude CLI) |
+| Command                                      | Purpose                                                               |
+| -------------------------------------------- | --------------------------------------------------------------------- |
+| `./integration_tests/run.sh`                 | Discover plugins under `plugins/` and run validation + loading checks |
+| `./integration_tests/run.sh --verbose`       | Same with verbose output                                              |
+| `./integration_tests/run.sh --manifest-only` | Manifest / structure checks only (Claude, Cursor, Codex)              |
+| `./integration_tests/run.sh --skip-loading`  | Skip Claude CLI loading tests                                         |
+| `./integration_tests/validate-manifest.sh`   | Claude `plugin.json` schema validation                                |
+| `./integration_tests/test-plugin-install.sh` | Marketplace install test (requires Claude CLI)                        |
 
 CI runs Trunk Check plus the integration suite (including a Docker install job). Local Docker smoke should match job `plugin-install-docker`.
 

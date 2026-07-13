@@ -6,8 +6,8 @@ This repository is a plugin monorepo. The primary plugin is [`second-brain`](plu
 
 ## Available plugins
 
-| Plugin | Platforms | Description |
-| --- | --- | --- |
+| Plugin                                           | Platforms           | Description                                                                                         |
+| ------------------------------------------------ | ------------------- | --------------------------------------------------------------------------------------------------- |
 | [`second-brain`](plugins/second-brain/README.md) | Claude Code, Cursor | Governed OKF knowledge workflows (setup, ingest, query, synthesize, lint, repair, maintain, status) |
 
 ## Installation (Claude Code)
