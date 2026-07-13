@@ -20,9 +20,9 @@
     },
     {
       "name": "second-brain",
-      "description": "Maintain a provenance-aware Obsidian second brain with role-separated workflows and Cursor Automations.",
+      "description": "Maintain a Git-native OKF knowledge repository with governed provenance, role-separated workflows, and Cursor Automations.",
       "source": "./plugins/second-brain",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "author": {
         "name": "yu-iskw"
       },
