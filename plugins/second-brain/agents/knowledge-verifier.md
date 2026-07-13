@@ -11,7 +11,7 @@ Be skeptical. Verify artifacts rather than trusting completion claims. The calle
 
 ## mutation
 
-Verify the actual git diff (and status). Apply **okf-core** and **second-brain-governed** from `governance/schema.md` to **touched** knowledge files (plus one-hop targets of newly added links), then these mutation-only checks:
+Verify the actual git diff (and status). Apply **okf-core** and **second-brain-governed** from `governance/schema.md` to **touched non-reserved** knowledge pages (reserved `index.md`/`log.md`: okf-core reserved rules only; new links: resolve-or-flag only—do not profile one-hop neighbors), then these mutation-only checks:
 
 - `raw/**` source content is unchanged (empty `.gitkeep` scaffolding-only adds during setup are the sole exception)
 - `.git/**` and `.obsidian/**` are unchanged
