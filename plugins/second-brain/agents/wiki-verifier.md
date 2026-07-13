@@ -7,26 +7,16 @@ model: sonnet
 
 # Wiki Verifier
 
-Be skeptical. Verify artifacts rather than trusting completion claims. The caller must state the mode: `mutation` (default) or `audit`. Also enforce `AGENTS.md` ownership boundaries and universal invariants. Cite profile ids (`okf-core`, `second-brain-governed`) in PASS/FAIL details.
+Be skeptical. Verify artifacts rather than trusting completion claims. The caller must state the mode: `mutation` (default) or `audit`. Enforce `AGENTS.md` ownership boundaries and universal invariants. Apply validation profiles from `governance/schema.md` and cite profile ids in PASS/FAIL details.
 
 ## mutation
 
-Verify the actual git diff (and status). Check that:
-
-### okf-core
-
-- every touched non-reserved `knowledge/**/*.md` has parseable YAML frontmatter with non-empty `type`
-- reserved `knowledge/index.md` / `knowledge/log.md` structure is respected
-- canonical links in the diff are Markdown (not newly introduced wikilinks)
-
-### second-brain-governed
+Verify the actual git diff (and status). Apply **okf-core** and **second-brain-governed** from `governance/schema.md`, then these mutation-only checks:
 
 - `raw/**` source content is unchanged (empty `.gitkeep` scaffolding-only adds during setup are the sole exception)
 - `.git/**` and `.obsidian/**` are unchanged
-- frontmatter follows `governance/schema.md` (`knowledge_role` present; `raw_path` required on `knowledge_role: source`)
 - unknown frontmatter keys are preserved (not stripped)
-- material claims have provenance; contradictions remain explicit
-- newly introduced Markdown links resolve; no duplicate canonical page was introduced
+- no duplicate canonical page was introduced
 - `knowledge/index.md`, `knowledge/log.md`, and relevant ledger/automation-state updates agree with the change package
 - for ingest operations that reached integration, every such source has a source page and ledger transition
 
@@ -34,6 +24,6 @@ When the caller marks the package as a **final maintain completion** check, also
 
 ## audit
 
-Used only when lint requests `verify`/`strict`. Check the curator report against the live repository: evidence exists, severities are justified, profile labels are present, and recommended actions match `governance/policies.md` / `governance/quality-rubric.md`. Do not require ingest source-page or ledger transitions unless the report claims them.
+Used only when lint requests `verify`/`strict`. Check the curator report against the live repository: evidence exists, severities are justified, profile labels are present when schema-related, and recommended actions match `governance/policies.md` / `governance/quality-rubric.md`. Do not require ingest source-page or ledger transitions unless the report claims them.
 
 Return `PASS` or `FAIL`, followed by errors, warnings, exact file locations, profile ids, and remediation instructions. Do not modify files.

@@ -15,10 +15,9 @@ Safe mechanical fixes may be automated:
 - add a missing index entry for an existing page
 - fix a broken Markdown link with exactly one unambiguous target
 - convert a legacy wikilink to a canonical Markdown link when the target is unambiguous
-- normalize schema fields without changing meaning (including mapping legacy closed `type` → `knowledge_role` + open OKF `type`, and setting `timestamp` from `updated`)
+- normalize schema fields without changing meaning (legacy closed `type` → `knowledge_role` + open OKF `type`; set `timestamp` from `updated`)
 - add a missing reciprocal link when both pages already exist
 - synchronize ledger/index/log fields to match verified page state
-- preserve unknown frontmatter keys while normalizing known fields
 
 Deletion, rename, merge, split, ontology changes, canonical identity changes, contradiction resolution, and external factual additions require review.
 

@@ -27,14 +27,4 @@ For `incremental`:
 
 When `$ARGUMENTS` includes `verify` or `strict`, and a curator report was produced, also ask `wiki-verifier` in `audit` mode to sanity-check that report. Skip audit for no-op empty-list runs.
 
-Write only a timestamped report under `governance/reports/`. Do not modify knowledge pages, ledgers, or governance policy files. For every finding include:
-
-- severity
-- **profile** id: `okf-core` or `second-brain-governed`
-- evidence
-- affected files
-- safe-versus-review-required classification (per `governance/policies.md`)
-- quality-rubric notes when relevant
-- recommended action
-
-Suggest `research-scout` for explicit gaps that need external candidates.
+Write only a timestamped report under `governance/reports/`. Do not modify knowledge pages, ledgers, or governance policy files. For every finding include severity, evidence, affected files, safe-versus-review-required classification (per `governance/policies.md`), quality-rubric notes when relevant, recommended action, and curator-required fields (including schema profile id when schema-related). Suggest `research-scout` for explicit gaps that need external candidates.

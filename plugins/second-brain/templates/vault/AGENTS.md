@@ -20,12 +20,11 @@
 8. Do not change schema, ontology, or policies without an explicit governance task.
 9. Every mutation workflow updates `knowledge/log.md` and the relevant ledger/state files.
 10. Content mutation workflows (knowledge page body/frontmatter changes beyond log/ledger bookkeeping) are incomplete until an independent verifier passes. Early-stop ingest that only updates the ledger and appends a log-only entry reports verification as `N/A`.
-11. Preserve unknown frontmatter keys when round-tripping documents.
-12. Canonical internal links are standard Markdown links (prefer bundle-absolute `/path.md` from `knowledge/`). Do not emit Obsidian `[[wikilinks]]` as canonical.
+11. Frontmatter, linking, and validation profiles: follow `governance/schema.md` (preserve unknown keys; do not emit wikilinks as canonical).
 
 ## Page lifecycle
 
-Use the `status`, `verification`, and `confidence` enums defined in `governance/schema.md`. Route pages with `knowledge_role`; OKF `type` remains an open string.
+Use the `status`, `verification`, and `confidence` enums in `governance/schema.md`. Route pages with `knowledge_role`; OKF `type` is an open string (`governance/ontology.md`).
 
 ## Automation risk budget
 

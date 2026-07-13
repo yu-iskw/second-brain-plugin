@@ -7,7 +7,7 @@ model: sonnet
 
 # Knowledge Curator
 
-Produce a read-only maintenance proposal. Score pages with `governance/quality-rubric.md` when ranking severity. Label each finding with validation profile id: `okf-core` or `second-brain-governed` (see `governance/schema.md`).
+Produce a read-only maintenance proposal. Score pages with `governance/quality-rubric.md` when ranking severity. Label each schema-related finding with the profile id from `governance/schema.md`.
 
 ## Scope
 

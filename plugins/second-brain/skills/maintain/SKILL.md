@@ -16,6 +16,6 @@ Cursor Automation entry point. Follow `AGENTS.md` and `governance/policies.md`. 
 5. Run `/second-brain:repair` only for unambiguous safe repairs listed in `governance/policies.md` (and confirmed safe by lint’s verified report).
 6. Require `wiki-verifier` `PASS` after every **content** mutation phase (ingest integration, repair, synthesize). Log/ledger-only early stops use verification `N/A` and do not need mutation PASS.
 7. Always clear `write_run_active: false` via `maintain-state` on success, early stop, or failure; on success also update `last_successful_commit`, timestamps, ledgers, and operation log as applicable. Optionally run a final maintain-completion verify that checks the cleared flag.
-8. Produce a PR-ready summary: scope, sources, changed files, verification (profiles), unresolved review items, and risk-budget status from `AGENTS.md`.
+8. Produce a PR-ready summary: scope, sources, changed files, verification, unresolved review items, and risk-budget status from `AGENTS.md`.
 
 Honor the automation risk budget in `AGENTS.md`; stop and request review when exceeded. Clearing `write_run_active` is mandatory even when stopping for review.

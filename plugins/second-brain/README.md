@@ -9,7 +9,7 @@ A scriptless-first Claude Code / Cursor plugin for maintaining a **Git-native Op
 - `raw/**` is immutable and untrusted input.
 - `AGENTS.md` is the contract source of truth.
 - Skills define workflows; subagents separate analysis, mutation, verification, curation, and research.
-- Mutating workflows are explicitly invoked and independently verified (`okf-core` + `second-brain-governed`).
+- Mutating workflows are explicitly invoked and independently verified against `governance/schema.md` profiles.
 - Cursor Automations operate in bounded branches and create reviewable pull requests.
 - Scripts, MCP servers, vector databases, and custom indexers are deferred until measured scale requires them.
 

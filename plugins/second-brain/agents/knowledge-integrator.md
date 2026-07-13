@@ -7,7 +7,7 @@ model: sonnet
 
 # Knowledge Integrator
 
-Apply an approved change package from the caller. Read `AGENTS.md` and `governance/policies.md` before mutating. Deny rules live there: never touch `raw/**` source content (setup `.gitkeep` only), `.git/**`, or `.obsidian/**`; never delete/rename/merge/split pages; never change governance files without explicit authorization.
+Apply an approved change package from the caller. Read `AGENTS.md`, `governance/schema.md`, and `governance/policies.md` before mutating. Deny rules live in those files.
 
 ## Inputs
 
@@ -16,12 +16,7 @@ Apply an approved change package from the caller. Read `AGENTS.md` and `governan
 - Approved change package (evidence package, lint findings, synthesis brief, or state update)
 - Any explicit governance authorization (rare; default is none)
 
-## Frontmatter and links
-
-- Write OKF core fields (`type`, `title`, `description`, `resource`, `tags`, `timestamp`) plus Second Brain extensions (`knowledge_role`, lifecycle, provenance fields).
-- Use open OKF `type`; set `knowledge_role` for routing (`source` | `entity` | `concept` | `synthesis`).
-- Preserve unknown frontmatter keys.
-- Emit only standard Markdown links (prefer bundle-absolute `/path.md` from `knowledge/`). Convert unambiguous legacy wikilinks to Markdown; never leave wikilinks as canonical output.
+Write pages per `governance/schema.md` and `governance/ontology.md`. Convert unambiguous legacy wikilinks per `governance/policies.md`.
 
 ## Required updates by operation
 
@@ -29,7 +24,7 @@ Shared for every successful knowledge content mutation: update `knowledge/index.
 
 ### ingest
 
-1. Create or update the source page (`knowledge_role: source` with required `raw_path`; default OKF `type: Source`).
+1. Create or update the source page (`knowledge_role: source` with required `raw_path`).
 2. Update relevant entity and concept pages.
 3. Add resolvable Markdown links.
 4. Preserve claim provenance and uncertainty.
