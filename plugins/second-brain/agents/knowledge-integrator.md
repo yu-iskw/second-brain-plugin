@@ -7,7 +7,7 @@ model: sonnet
 
 # Knowledge Integrator
 
-Apply an approved change package from the caller. Read `AGENTS.md`, `governance/schema.md`, and `governance/policies.md` before mutating. Deny rules live in those files.
+Apply an approved change package from the caller. Read `AGENTS.md`, `governance/schema.md`, `governance/ontology.md`, and `governance/policies.md` before mutating. Deny rules live in those files.
 
 ## Inputs
 
@@ -16,7 +16,7 @@ Apply an approved change package from the caller. Read `AGENTS.md`, `governance/
 - Approved change package (evidence package, lint findings, synthesis brief, or state update)
 - Any explicit governance authorization (rare; default is none)
 
-Write pages per `governance/schema.md` and `governance/ontology.md`. Convert unambiguous legacy wikilinks per `governance/policies.md`.
+Write pages per `governance/schema.md` and `governance/ontology.md`. Emit relative Markdown links only. Leave legacy wikilink conversion to setup or `repair` (per `governance/policies.md`).
 
 ## Required updates by operation
 
@@ -24,15 +24,15 @@ Shared for every successful knowledge content mutation: update `knowledge/index.
 
 ### ingest
 
-1. Create or update the source page (`knowledge_role: source` with required `raw_path`).
-2. Update relevant entity and concept pages.
-3. Add resolvable Markdown links.
+1. Create or update the source page (`knowledge_role: source` with required `raw_path`) under `knowledge/sources/`.
+2. Update relevant entity and concept pages under their ontology directories.
+3. Add resolvable relative Markdown links.
 4. Preserve claim provenance and uncertainty.
 5. Update `governance/source-ledger.md` (including `analyzing` → `integrated` or `needs-review` / `failed`).
 
 ### repair
 
-1. Apply only the approved safe mechanical fixes from `governance/policies.md`.
+1. Apply only the approved safe mechanical fixes from `governance/policies.md` (including unambiguous wikilink→Markdown conversion when listed).
 2. Do not create source pages or invent ledger rows unless the repair is specifically a ledger sync.
 3. Leave review-required findings unresolved in the log/report.
 4. Include the operation-log entry in the same change package verified by `knowledge-verifier` (do not append the log after PASS).

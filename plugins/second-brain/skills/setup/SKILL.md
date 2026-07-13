@@ -7,47 +7,33 @@ allowed-tools: Read, Glob, Grep, Write, Edit, Bash(git mv wiki knowledge), Bash(
 
 # Setup Second Brain
 
-Initialize the current directory as a governed OKF knowledge repository without overwriting existing user content. Obsidian is optional; do not require a `.obsidian/` directory.
+Initialize or upgrade the current directory as a governed OKF knowledge repository. Obsidian is optional. Shell renames are limited to `wiki`→`knowledge` and `meta`→`governance` only.
 
-Materialize the templates bundled under `${CLAUDE_PLUGIN_ROOT}/templates/vault/`, including `.gitkeep` placeholders (`raw/assets`, knowledge role dirs, `governance/reports`, `governance/proposals`, `output`). Creating a missing empty `raw/**/.gitkeep` is allowed scaffolding; never overwrite or edit source files under `raw/`.
+Templates live under `${CLAUDE_PLUGIN_ROOT}/templates/vault/`. Creating a missing empty `raw/**/.gitkeep` is allowed; never overwrite or edit source files under `raw/`.
 
-Shell renames are limited to `wiki`→`knowledge` and `meta`→`governance` only. Do not `mv`/`git mv` other paths.
+## Ordered state machine (run top to bottom; one action per matching row)
 
-## Required template paths
+| Condition | Action |
+|---|---|
+| `wiki/` exists and `knowledge/` does not | `git mv`/`mv` `wiki` → `knowledge` |
+| `wiki/` and `knowledge/` both exist | Conflict: do not merge; list review-required |
+| `meta/` exists and `governance/` does not | `git mv`/`mv` `meta` → `governance` |
+| `meta/` and `governance/` both exist | Conflict: do not merge; list review-required |
+| `governance/schema.md` missing **or** pre-OKF (no `okf-core`, or mandates `[[wikilinks]]` as canonical, or closed `type:` enum without `knowledge_role`) | Backup to `governance/proposals/legacy-<name>-backup.md`; materialize OKF templates for `schema.md`, `ontology.md`, `policies.md` (and `quality-rubric.md` / `AGENTS.md` when they still describe `wiki/**`/`meta/**` or lack OKF ownership). Mark review-required. |
+| OKF-conformant user governance differs from template in substance | Preserve user file; write template as `governance/proposals/<name>.okf-template.md`; list conflict |
+| Required OKF files/dirs still missing after the above | Materialize missing templates only (including `.gitkeep` dirs under `knowledge/{sources,entities,concepts,synthesis}`, `governance/{proposals,reports}`, `raw/assets`, `output`) |
+| Pages under `knowledge/` still have `[[` or legacy closed `type:` | Grep first; edit matching files only; cap at 20 pages per run (same risk budget as `AGENTS.md`); leave remainder as review-required |
 
-- `AGENTS.md`, `CLAUDE.md`
+**Do not materialize empty `knowledge/` or `governance/` trees before the rename rows.** Renames and governance upgrades must run before filling gaps from templates.
+
+After governance is OKF-conformant, rewrite Grep hits: unambiguous wikilinks → Markdown (relative links under `knowledge/`); map legacy closed `type` → `knowledge_role` + open OKF `type` per schema/ontology; preserve unknown keys; set `timestamp` from `updated` when present.
+
+## Required end state
+
+- `AGENTS.md`, `CLAUDE.md` (imports `AGENTS.md`)
 - `governance/{schema,ontology,policies,quality-rubric,source-ledger,automation-state}.md`
-- `knowledge/index.md` (may include `okf_version: "0.1"`), `knowledge/log.md`
+- `knowledge/index.md` (optional `okf_version: "0.1"`), `knowledge/log.md`
 - `.cursor/rules/*.mdc`
-- directory `.gitkeep` placeholders under the template tree
+- directory `.gitkeep` placeholders as in the template tree
 
-## Legacy path migration (`wiki/` / `meta/`)
-
-If `wiki/` or `meta/` exists and the OKF layout is missing or incomplete:
-
-1. Rename `wiki/` → `knowledge/` when `knowledge/` does not already exist with user content; if both exist, report a conflict and do not clobber.
-2. Rename `meta/` → `governance/` with the same conflict rule.
-3. `Grep` for `\[\[` under `knowledge/` and only edit pages with hits: rewrite unambiguous wikilinks to Markdown per `governance/schema.md`; leave ambiguous targets as review notes.
-4. `Grep` for legacy closed frontmatter `type: source|entity|concept|synthesis` and only edit matching pages: map to `knowledge_role` + open OKF `type` per schema/ontology; preserve unknown keys; set `timestamp` from `updated` when present.
-
-## Governance content upgrade (required for OKF)
-
-Path rename alone is not enough. Detect **pre-OKF governance** when any of these hold for `governance/schema.md` (or legacy `meta/schema.md` before rename):
-
-- missing the string `okf-core` or `knowledge_role`
-- mandates Obsidian `[[wikilinks]]` as the canonical link form
-- uses a closed `type: source | entity | concept | synthesis` enum without `knowledge_role`
-
-When pre-OKF (or the OKF governance file is missing):
-
-1. Backup the existing file under `governance/proposals/legacy-<name>-backup.md` (create `proposals/` if needed). Do the same for `ontology.md`, `policies.md`, and root `AGENTS.md` when they still describe `wiki/**` / `meta/**` or lack OKF ownership boundaries.
-2. Materialize the current plugin templates for `governance/schema.md`, `governance/ontology.md`, `governance/policies.md`, and `AGENTS.md` (and `quality-rubric.md` when missing).
-3. Mark the upgrade as **migrated** with **review-required** so humans can re-apply local customizations from the backups.
-
-If both a customized OKF-era file and a template conflict in substance, preserve the user file, write the template beside it as `*.okf-template.md` under `governance/proposals/`, and list a conflict—do not clobber OKF-conformant user governance.
-
-## Write rules
-
-Before writing, inspect each target. Preserve existing OKF-conformant content and report conflicts instead of replacing it. Ensure `CLAUDE.md` imports `AGENTS.md`.
-
-Finish with a manifest of **created**, **migrated**, **preserved**, and **review-required** / conflict files. Note: if Obsidian’s vault root is the Git repo root, prefer relative Markdown links inside `knowledge/` (see `governance/schema.md`); optionally open `knowledge/` as the vault root for bundle-absolute `/…` links.
+Finish with a manifest of **created**, **migrated**, **preserved**, and **review-required** / conflict files. Linking rules: `governance/schema.md`.

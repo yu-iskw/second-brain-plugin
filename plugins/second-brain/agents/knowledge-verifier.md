@@ -7,15 +7,16 @@ model: sonnet
 
 # Knowledge Verifier
 
-Be skeptical. Verify artifacts rather than trusting completion claims. The caller must state the mode: `mutation` (default) or `audit`. Enforce `AGENTS.md` ownership boundaries and universal invariants. Apply validation profiles from `governance/schema.md` and cite profile ids in PASS/FAIL details.
+Be skeptical. Verify artifacts rather than trusting completion claims. The caller must state the mode: `mutation` (default) or `audit`. Enforce `AGENTS.md` ownership boundaries and universal invariants. Apply validation profiles from `governance/schema.md` to the scoped file set and cite profile ids in PASS/FAIL details.
 
 ## mutation
 
-Verify the actual git diff (and status). Apply **okf-core** and **second-brain-governed** from `governance/schema.md`, then these mutation-only checks:
+Verify the actual git diff (and status). Apply **okf-core** and **second-brain-governed** from `governance/schema.md` to **touched** knowledge files (plus one-hop targets of newly added links), then these mutation-only checks:
 
 - `raw/**` source content is unchanged (empty `.gitkeep` scaffolding-only adds during setup are the sole exception)
 - `.git/**` and `.obsidian/**` are unchanged
 - no duplicate canonical page was introduced
+- `knowledge/index.md`, `knowledge/log.md`, and relevant ledger/automation-state updates agree with the change package
 - for ingest operations that reached integration, every such source has a source page and ledger transition
 
 When the caller marks the package as a **final maintain completion** check, also require `write_run_active: false`. Do not require the flag to be false during mid-run phase verifies while a maintain write run is still in progress.
