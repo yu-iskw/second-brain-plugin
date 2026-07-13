@@ -1,0 +1,28 @@
+{
+  "version": "1",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "type": "prompt",
+            "model": "haiku",
+            "prompt": "FIRST: If the working directory is NOT an initialized second-brain vault, ALLOW immediately with no further checks. A vault is initialized only when BOTH (a) governance/schema.md exists and contains okf-core, AND (b) AGENTS.md exists and contains \"Second Brain Agent Contract\". If either check fails, ALLOW. THEN: Enforce templates/vault AGENTS.md ownership and invariants including the /second-brain:setup migration clause (single source of truth; do not invent extra rules). Hook input: $ARGUMENTS. If tool_name is Bash and tool_input.command is read-only git inspection only (status, diff, log, rev-parse, show, ls-files) with no file redirects/writes, ALLOW immediately. If tool_name is Bash and the command is only renaming wiki→knowledge or meta→governance via mv/git mv (no other paths), ALLOW (AGENTS setup migration clause bounds when those renames are valid). Otherwise inspect tool_input.file_path/content or tool_input.command. DENY mutations under .git/ or .obsidian/. DENY any create/modify/move/delete under raw/ except first-time setup creating a missing raw/**/.gitkeep with empty/placeholder content. DENY delete/rename/merge/split of canonical knowledge pages unless explicitly approved or AGENTS setup migration renames. DENY changes to AGENTS.md, governance/schema.md, governance/ontology.md, governance/policies.md, governance/quality-rubric.md, meta/schema.md, meta/ontology.md, meta/policies.md, or meta/quality-rubric.md unless explicit governance authorization OR /second-brain:setup per AGENTS migration clause (per-file: create missing OKF governance or overwrite only pre-OKF copies after backups under governance/proposals/; never overwrite OKF-conformant governance). ALLOW ordinary knowledge/ and governance ledger/report/state/index/log updates. Deny with a concise reason."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "model": "haiku",
+            "prompt": "FIRST: If the working directory is NOT an initialized second-brain vault, allow stop immediately. A vault is initialized only when BOTH (a) governance/schema.md exists and contains okf-core, AND (b) AGENTS.md exists and contains \"Second Brain Agent Contract\". If either check fails, allow stop. THEN: Hook input: $ARGUMENTS. Allow stop for read-only/non-mutation turns (query, status, lint report-only, research, clarification) when the user question is answered. Allow setup stop when a create/preserve/migrate/conflict manifest is present. For mutation workflows (ingest, repair, synthesize, maintain): if the run early-stopped with ledger needs-review/failed and no content integration was attempted, allow stop when that outcome, ledger/log updates, unresolved items, and cleared write_run_active (false) / automation-state updates as applicable are reported (verification may be N/A). Otherwise require scope, sources processed (or none), files changed, independent verification result, unresolved review items, and ledger/log/automation-state updates including write_run_active cleared when maintain started a write run. Identify missing evidence when blocking."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 {
-  "name": "claude-plugin-template",
+  "name": "second-brain-plugin",
   "metadata": {
-    "description": "Template repository for creating high-quality Claude Code plugins with shared CI/CD and testing infrastructure"
+    "description": "Claude Code plugins for governed, automation-friendly knowledge management"
   },
   "owner": {
     "name": "yu-iskw"
@@ -16,7 +16,18 @@
         "name": "yu-iskw"
       },
       "license": "Apache-2.0",
-      "repository": "https://github.com/yu-iskw/claude-code-plugin-template"
+      "repository": "https://github.com/yu-iskw/second-brain-plugin"
+    },
+    {
+      "name": "second-brain",
+      "description": "Maintain a Git-native OKF knowledge repository with governed provenance and role-separated Claude Code workflows.",
+      "source": "./plugins/second-brain",
+      "version": "0.2.0",
+      "author": {
+        "name": "yu-iskw"
+      },
+      "license": "Apache-2.0",
+      "repository": "https://github.com/yu-iskw/second-brain-plugin"
     }
   ]
 }
