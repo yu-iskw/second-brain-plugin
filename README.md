@@ -1,74 +1,76 @@
-# Claude Plugin Monorepo Template
+# Second Brain Plugin
 
-Template repository for bootstrapping high-quality Claude Code plugins with shared CI/CD and testing infrastructure.
+Claude Code and Cursor plugins for maintaining a **Git-native Open Knowledge Format (OKF)** knowledge repository—with governed provenance, verification, and automation.
 
-## Key Features
+This repository is a plugin monorepo. The primary plugin is [`second-brain`](plugins/second-brain/).
 
-- **Standard Plugin Layout**: Follows best practices for Skills, Agents, Hooks, MCP, and LSP.
-- **Monorepo Ready**: Designed to host multiple plugins under the `plugins/` directory.
-- **Comprehensive Examples**: The `hello-world` plugin demonstrates every available extension point.
-- **Shared CI/CD**: Unified quality checks via `trunk` and GitHub Actions.
-- **Integration Tests**: Automated smoke tests that validate manifest schemas, component discovery, and **plugin installation** (marketplace add + install + list/validate) across all plugins.
+## Available plugins
 
-## Repository Layout
+| Plugin | Platforms | Description |
+| --- | --- | --- |
+| [`second-brain`](plugins/second-brain/README.md) | Claude Code, Cursor | Governed OKF knowledge workflows (setup, ingest, query, synthesize, lint, repair, maintain, status) |
+
+## Installation (Claude Code)
+
+Install into **project scope** so vault hooks only load in repositories that use this plugin:
+
+```bash
+/plugin marketplace add yu-iskw/second-brain-plugin
+/plugin install second-brain@second-brain-plugin --scope project
+```
+
+Equivalent CLI form:
+
+```bash
+claude plugin install --scope project second-brain@second-brain-plugin
+```
+
+Then run `/second-brain:setup` from the repository root.
+
+Full usage, safety model, and Obsidian notes: **[plugins/second-brain/README.md](plugins/second-brain/README.md)**.
+
+### Cursor
+
+`second-brain` also ships a Cursor manifest (`.cursor-plugin/`). Prefer project-local or team marketplace install so vault hooks stay scoped to repositories that use the plugin.
+
+## Commands
+
+- `/second-brain:setup`
+- `/second-brain:ingest`
+- `/second-brain:query`
+- `/second-brain:synthesize`
+- `/second-brain:lint`
+- `/second-brain:repair`
+- `/second-brain:maintain`
+- `/second-brain:status`
+
+## Repository layout
 
 ```text
 .
-├── plugins/                     # Container for all plugins
-│   └── hello-world/             # Comprehensive sample plugin
-│       ├── .claude-plugin/      # Plugin metadata (plugin.json)
-│       ├── agents/              # Custom agent definitions
-│       ├── skills/              # Model-invoked skills (SKILL.md)
-│       ├── hooks/               # Event hook configurations
-│       ├── .mcp.json            # MCP server configuration
-│       └── .lsp.json            # LSP server configuration
-├── integration_tests/           # Shared testing harness
-│   ├── run.sh                   # Test orchestrator (scans plugins/)
-│   ├── validate-manifest.sh     # Manifest JSON schema validator
-│   └── ...
-├── .github/workflows/           # GitHub Actions (Lint, Integration Tests)
-├── Makefile                     # Task runner
+├── plugins/
+│   └── second-brain/            # OKF knowledge-management plugin
+│       ├── .claude-plugin/      # Claude Code manifest
+│       ├── .cursor-plugin/      # Cursor manifest
+│       ├── agents/              # Role-separated subagents
+│       ├── skills/              # Workflow skills
+│       ├── hooks/               # Event hooks
+│       ├── templates/           # Vault + automation templates
+│       └── README.md            # End-user plugin docs
+├── .claude-plugin/              # Claude marketplace catalog
+├── .cursor-plugin/              # Cursor marketplace catalog
+├── .codex-plugin/               # Codex marketplace catalog
+├── integration_tests/           # Shared plugin smoke tests
+├── .github/workflows/           # CI (lint + integration tests)
+├── Makefile
+├── CONTRIBUTING.md              # Developer guide
 └── README.md
 ```
 
-## Quickstart
+## Contributing
 
-1.  **Create a new repository** from this template.
-2.  **Explore the sample plugin** in `plugins/hello-world/` to see how components are defined.
-3.  **Run local checks**:
-    ```bash
-    make lint
-    make test-integration-docker
-    ```
-
-## Development
-
-### Adding a New Plugin
-
-Create a new directory in `plugins/` following the [Standard Plugin Layout](https://code.claude.com/docs/en/plugins-reference#standard-plugin-layout):
-
-- `plugins/<name>/.claude-plugin/plugin.json`: Required manifest.
-- `plugins/<name>/skills/`: Agent Skills folder.
-- `plugins/<name>/agents/`: Subagent markdown files.
-- `plugins/<name>/hooks/`: Event hook configurations.
-- `plugins/<name>/.mcp.json`: MCP configurations.
-- `plugins/<name>/.lsp.json`: LSP configurations.
-
-### Testing
-
-The integration test runner (`./integration_tests/run.sh`) automatically discovers all directories in `plugins/` that contain a `.claude-plugin/plugin.json` file.
-
-- Run all tests: `./integration_tests/run.sh`
-- Verbose output: `./integration_tests/run.sh --verbose`
-- Skip loading tests (if Claude CLI is not installed): `./integration_tests/run.sh --skip-loading`
-
-Docker integration tests (`make test-integration-docker`) run the same suite inside a container and additionally run a **plugin install** test: they add the workspace as a marketplace, install each plugin with `claude plugin install`, and verify with `claude plugin list`. The same Docker flow runs in CI (job `plugin-install-docker`).
-
-## CI/CD
-
-- **Trunk Check**: Runs linters and static analysis on every PR.
-- **Integration Tests**: Automatically validates every plugin in the `plugins/` directory.
+Want to change plugins, CI, or docs? See **[CONTRIBUTING.md](CONTRIBUTING.md)** for prerequisites, local checks, and how to add a plugin.
 
 ## License
 
-Apache License 2.0. See `LICENSE`.
+Apache License 2.0. See [`LICENSE`](LICENSE).
