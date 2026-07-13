@@ -5,5 +5,13 @@
   "author": { "name": "yu-iskw" },
   "license": "Apache-2.0",
   "repository": "https://github.com/yu-iskw/second-brain-plugin",
-  "keywords": ["okf", "open-knowledge-format", "second-brain", "knowledge-management", "llm-wiki", "obsidian", "cursor"]
+  "keywords": [
+    "okf",
+    "open-knowledge-format",
+    "second-brain",
+    "knowledge-management",
+    "llm-wiki",
+    "obsidian",
+    "cursor"
+  ]
 }

@@ -50,7 +50,7 @@ Canonical links are standard Markdown. **Default: relative links within `knowled
 
 Bundle-absolute `/entities/orders.md` is optional when the OKF bundle directory itself is the consumption root (for example Obsidian vault root = `knowledge/`).
 
-**Wikilink severity**
+### Wikilink severity
 
 - Emitting new `[[wikilinks]]` fails **okf-core**.
 - Pre-existing wikilinks are warnings (curator / setup / repair); do not convert on ordinary ingest.

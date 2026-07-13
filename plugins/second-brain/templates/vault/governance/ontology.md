@@ -5,7 +5,7 @@
 Use `knowledge_role` for routing. OKF `type` remains an open descriptive string.
 
 | knowledge_role | Directory | Default OKF `type` | Meaning |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `source` | `knowledge/sources/` | `Source` | Faithful representation of one raw artifact |
 | `entity` | `knowledge/entities/` | `Entity` | Person, organization, product, place, system, or tool (prefer specifics like `Person` when clear) |
 | `concept` | `knowledge/concepts/` | `Concept` | Reusable idea, method, pattern, theory, term, or capability |

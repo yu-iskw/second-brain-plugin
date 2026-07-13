@@ -3,7 +3,7 @@
 Score each dimension from 0 to 2.
 
 | Dimension | 0 | 1 | 2 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Provenance | Missing | Partial | Claim-level traceability |
 | Canonicalization | Duplicate/ambiguous | Mostly consistent | Clear title and aliases |
 | Epistemic clarity | Fact and inference mixed | Some labels | Evidence, inference, uncertainty separated |

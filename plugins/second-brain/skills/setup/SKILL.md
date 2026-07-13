@@ -14,7 +14,7 @@ Templates live under `${CLAUDE_PLUGIN_ROOT}/templates/vault/`. Creating a missin
 ## Ordered state machine (run top to bottom; one action per matching row)
 
 | Condition | Action |
-|---|---|
+| --- | --- |
 | `wiki/` exists and `knowledge/` does not | `git mv`/`mv` `wiki` → `knowledge` |
 | `wiki/` and `knowledge/` both exist | Conflict: do not merge; list review-required |
 | `meta/` exists and `governance/` does not | `git mv`/`mv` `meta` → `governance` |
